@@ -153,3 +153,90 @@ return (
     </ScrollView>
   </View>
 );
+
+
+// Estilos do aplicativo (semelhante ao CSS)
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#121212", // Fundo escuro estilo “Netflix”
+    padding: 10,
+  },
+  header: {
+    fontSize: 26,
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "700",
+    marginVertical: 15,
+    letterSpacing: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "#121212",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loadingText: {
+    color: "#fff",
+    marginTop: 10,
+    fontSize: 16,
+  },
+  errorText: {
+    color: "#ff4c4c",
+    fontSize: 18,
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  retryButton: {
+    backgroundColor: "#e50914", // Vermelho característico da Marvel/Netflix
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  retryText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  scrollContent: {
+    flexDirection: "row",
+    flexWrap: "wrap", // Permite que os cards “quebrem linha”
+    justifyContent: "space-between",
+  },
+  card: {
+    backgroundColor: "#1e1e1e",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 15,
+    width: "47%", // Dois cards por linha
+    alignItems: "center",
+    elevation: 4, // Sombra no Android
+  },
+  image: {
+    width: 120,
+    height: 170,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
+  },
+  text: {
+    fontSize: 13,
+    color: "#ccc",
+    textAlign: "center",
+  },
+  boxOffice: {
+    fontSize: 13,
+    textAlign: "center",
+    marginTop: 5,
+    color: "#fff",
+  },
+  boxOfficeValue: {
+    color: "#00c853", // Verde para valores positivos
+    fontWeight: "bold",
+  },
+});
