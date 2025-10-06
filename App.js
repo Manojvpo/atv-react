@@ -67,3 +67,14 @@ try {
   setCarregando(false);
   setAtualizando(false);
 }
+
+ // Executa automaticamente a função carregarFilmes() na montagem do componente
+ useEffect(() => {
+  carregarFilmes();
+}, []);
+
+// Função para atualizar os dados (usada no "puxar para atualizar")
+const atualizar = () => {
+  setAtualizando(true);
+  carregarFilmes();
+};
