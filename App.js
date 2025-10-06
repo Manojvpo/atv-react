@@ -78,3 +78,78 @@ const atualizar = () => {
   setAtualizando(true);
   carregarFilmes();
 };
+
+// Caso ainda esteja carregando os dados, exibe o indicador de loading
+if (carregando) {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#e50914" /> {/* Spinner animado */}
+      <Text style={styles.loadingText}>Carregando filmes...</Text>
+    </View>
+  );
+}
+
+// Caso ocorra erro, exibe uma mensagem e um botão para tentar novamente
+if (erro) {
+  return (
+    <View style={styles.loadingContainer}>
+      <Text style={styles.errorText}>Erro ao carregar os dados 😞</Text>
+      <TouchableOpacity style={styles.retryButton} onPress={carregarFilmes}>
+        <Text style={styles.retryText}>Tentar novamente</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// Caso os dados já tenham sido carregados com sucesso
+return (
+  <View style={styles.container}>
+    <Text style={styles.header}>🎬 Filmes da Marvel</Text>
+
+    {/* ScrollView para permitir rolagem dos cards */}
+    <ScrollView
+      contentContainerStyle={styles.scrollContent}
+      refreshControl={
+        <RefreshControl refreshing={atualizando} onRefresh={atualizar} />
+      } // Adiciona o gesto de "puxar para atualizar"
+    >
+      {/* Verifica se o array de filmes está vazio */}
+      {filmes && filmes.length > 0 ? (
+        filmes.map((item, index) => {
+          // Verifica se as propriedades necessárias existem
+          const valorArrecadacao = item.valorArrecadacao || 0;
+          const linkPoster = item.linkPoster || "";
+          const titulo = item.titulo || "Título não disponível";
+          const franquia = item.franquia || "Franquia não disponível";
+          const anoLancamento = item.anoLancamento || "Ano não disponível";
+
+          // Formata o valor da bilheteria para o padrão brasileiro (R$ 1.000.000)
+          const valorFormatado = Number(valorArrecadacao).toLocaleString("pt-BR");
+
+          return (
+            <View style={styles.card} key={index}>
+              {/* Exibe o pôster do filme */}
+              {linkPoster ? (
+                <Image source={{ uri: linkPoster }} style={styles.image} />
+              ) : (
+                <Text style={styles.text}>Imagem não disponível</Text>
+              )}
+
+              {/* Exibe os textos com as informações do filme */}
+              <Text style={styles.title}>{titulo}</Text>
+              <Text style={styles.text}>Franquia: {franquia}</Text>
+              <Text style={styles.text}>Ano: {anoLancamento}</Text>
+
+              {/* Exibe a bilheteria formatada */}
+              <Text style={styles.boxOffice}>
+                Bilheteria: <Text style={styles.boxOfficeValue}>R$ {valorFormatado}</Text>
+              </Text>
+            </View>
+          );
+        })
+      ) : (
+        <Text style={styles.text}>Nenhum filme encontrado.</Text>
+      )}
+    </ScrollView>
+  </View>
+);
