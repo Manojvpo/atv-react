@@ -46,3 +46,24 @@ const carregarFilmes = async () => {
     setErro(true); // Define o estado de erro
   }
 };
+
+// Se a resposta não for bem-sucedida (status != 200), lança um erro
+try {
+  if (!resposta.ok) {
+    console.error(`Erro HTTP: ${resposta.status} - ${resposta.statusText}`);
+    throw new Error("Erro ao carregar dados da API");
+  }
+
+  // Tenta converter a resposta JSON
+  const dados = await resposta.json();
+  console.log("Dados recebidos da API:", dados); // Log para verificar os dados
+  setFilmes(dados); // Atualiza o estado com os dados recebidos
+} catch (err) {
+  // Caso ocorra erro, exibe no console e marca o estado de erro
+  console.error("Erro capturado:", err.message || err);
+  setErro(true);
+} finally {
+  // Ao final, independentemente do resultado, desativa o loading e o refresh
+  setCarregando(false);
+  setAtualizando(false);
+}
